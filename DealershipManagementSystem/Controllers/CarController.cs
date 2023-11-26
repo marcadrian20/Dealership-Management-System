@@ -95,8 +95,8 @@ public class CarController : ControllerBase
         {
             return BadRequest(e.Message);
         }
-        
 
+        _dbContext.SaveChanges();
         return Ok(car);
     }
     
