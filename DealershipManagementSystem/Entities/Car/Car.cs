@@ -1,43 +1,49 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using DealershipManagementSystem.Repository;
+using DealershipManagementSystem.Entities.Car.Colours;
+using DealershipManagementSystem.Entities.Car.Styles;
 
-namespace DealershipManagementSystem.Entities;
+namespace DealershipManagementSystem.Entities.Car;
 
 public class Car:Entity
 {
     //public string Id { get; private  set; }
     public string Manufacturer { get; private set; }
     public string Model { get; private set; }
-    public string Trim { get; private set; }
+    public Style Style { get; set; }
     public string Year { get; private set; }
     public string Kilometers { get; private set; }
     public string Condition { get; private set; }
-    public string Colour { get; private set; }
+    public Colour Colour { get; set; }
     private Car()
     {
     }
     
-    public static Car Create(string manufacturer, string model, string trim, string year, string kilometers,string condition,string colour)
+    public static async Task<Car> CreateAsync(
+        ICarRepository _carRepository,
+        string manufacturer,
+        string model,
+        Style style,
+        string year, 
+        string kilometers,
+        string condition,
+        Colour colour)
     {
         if (string.IsNullOrWhiteSpace(manufacturer))
             throw new Exception("Car make can't be empty");
         if (string.IsNullOrWhiteSpace(model))
             throw new Exception("Model can't be empty, please enter it");
-        if (string.IsNullOrWhiteSpace(trim))
-            throw new Exception("Trim can't be empty, please enter it");
         if (string.IsNullOrWhiteSpace(year))
             throw new Exception("Year can't be empty, please enter it");
         if (string.IsNullOrWhiteSpace(kilometers))
             throw new Exception("Kilometers can't be empty");
         if (string.IsNullOrWhiteSpace(condition))
             throw new Exception("Condition can't be empty, please enter it");
-        if (string.IsNullOrWhiteSpace(colour))
-            throw new Exception("Colour can't be empty, please enter it");
         return new Car
         {
             //Id = Guid.NewGuid().ToString(),
             Manufacturer = manufacturer,
             Model = model,
-            Trim = trim,
+            Style = style,
             Year = year,
             Kilometers = kilometers,
             Condition = condition,
@@ -59,12 +65,6 @@ public class Car:Entity
             throw new Exception("Model can't be empty");
         Model = model;
     }
-    public void SetTrim(string trim)
-    {
-        if (string.IsNullOrWhiteSpace(trim))
-            throw new Exception("Trim can't be empty");
-        Trim = trim;
-    }
     public void SetYear(string year)
     {
         if (string.IsNullOrWhiteSpace(year))
@@ -83,11 +83,5 @@ public class Car:Entity
         if (string.IsNullOrWhiteSpace(condtion))
             throw new Exception("Condition can't be empty");
         Condition = condtion;
-    }
-    public void SetColour(string colour)
-    {
-        if (string.IsNullOrWhiteSpace(colour))
-            throw new Exception("Condition can't be empty");
-        Colour = colour;
     }
 }

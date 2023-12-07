@@ -1,3 +1,3 @@
-﻿namespace DealershipManagementSystem.Controllers;
+namespace DealershipManagementSystem.Controllers;
 
-public record CarRequest(string Manufacturer, string Model, string Trim,string Year, string Kilometers,string Condition,string Colour);
+public record CarRequest(string Manufacturer, string Model, string StyleId,string Year, string Kilometers,string Condition,string ColourId);
