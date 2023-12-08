@@ -10,8 +10,8 @@ This is a Dealership Management System made by me with the aim of learning the r
     </ol>
   </li>
 </ol>
-## Planned for the future:
 
+## Planned for the future:
 1. Customer account system
 2. Employee management system
 3. Car ratings and reviews
