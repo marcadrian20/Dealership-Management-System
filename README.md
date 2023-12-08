@@ -5,9 +5,9 @@ This is a Dealership Management System made by me with the aim of learning the r
 ~Inventory Management(barely): Add, remove and modify cars from the lot.Each car has a manufacturer,model,year,KMs,style and condition to it.
 
 ## Planned for the future:
-~Customer account system
-~Employee management system
-~Car ratings and reviews
-~Top picks
-~Car booking
-~Car maintenance services
+1. Customer account system
+2. Employee management system
+3 .Car ratings and reviews
+4. Top picks
+5. Car booking
+6. Car maintenance services
