@@ -1,3 +1,3 @@
 ﻿namespace DealershipManagementSystem.Controllers;
 
-public record Style(string name);
+public record StyleRequest(string StyleName);

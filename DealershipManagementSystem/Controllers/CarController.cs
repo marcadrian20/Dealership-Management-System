@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DealershipManagementSystem.Entities;
 using DealershipManagementSystem.Entities.Car;
+using DealershipManagementSystem.Entities.Car.Manufacturers;
+using DealershipManagementSystem.Entities.Car.Styles;
 using DealershipManagementSystem.Repository;
 namespace DealershipManagementSystem.Controllers;
 
@@ -51,16 +53,26 @@ public class CarController : ControllerBase
         var colour = await _dbContext.Colours
             .FirstOrDefaultAsync(c => c.Id == carRequest.ColourId);
         var style = await _dbContext.Styles
-            .FirstOrDefaultAsync(s => s.name == carRequest.StyleId);
+            .FirstOrDefaultAsync(s => s.Id == carRequest.StyleId);
+        var manufacturer = await _dbContext.Manufacturers
+            .FirstOrDefaultAsync(s => s.Id == carRequest.ManufacturerId);
+        var model = await _dbContext.Models
+            .FirstOrDefaultAsync(s => s.Id == carRequest.ModelId);
         if (colour is null)
             return NotFound($"Colour with id: {carRequest.ColourId} wasnt found");
+        if (style is null)
+            return NotFound($"Colour with id: {carRequest.StyleId} wasnt found");
+        if (manufacturer is null)
+            return NotFound($"Manufacturer with id: {carRequest.ManufacturerId} wasnt found");
+        if (model is null)
+            return NotFound($"Manufacturer with id: {carRequest.ModelId} wasnt found");
         Car car = null;
         try
         {
             car = await Car.CreateAsync(
                 _carRepository,
-                carRequest.Manufacturer,
-                carRequest.Model,
+                manufacturer,
+                model,
                 style,
                 carRequest.Year,
                 carRequest.Kilometers,
@@ -105,12 +117,14 @@ public class CarController : ControllerBase
 
         try
         {
-            car.SetManufacturer(carRequest.Manufacturer);
-            car.SetModel(carRequest.Model);
+            //car.SetManufacturer(carRequest.Manufacturer);
+            //car.SetModel(carRequest.Model);
             car.SetYear(carRequest.Year);
             car.SetKilometers(carRequest.Kilometers);
             car.SetCondition(carRequest.Condition);
             //car.SetColour(carRequest.Colour);
+            
+            //car.Colour = carRequest.ColourId;
         }
         catch (Exception e)
         {

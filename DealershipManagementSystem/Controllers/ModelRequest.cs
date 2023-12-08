@@ -1,3 +1,3 @@
 namespace DealershipManagementSystem.Controllers;
 
-public record ModelRequest(string name);
+public record ModelRequest(string ModelName);

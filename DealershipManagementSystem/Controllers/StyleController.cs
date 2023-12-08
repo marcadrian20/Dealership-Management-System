@@ -22,26 +22,26 @@ public class StylesController : ControllerBase
     public async Task<ActionResult<IEnumerable<StyleResponse>>> GetStyle()
     {
         var styles = await _context.Styles
-            .Include(s=>s.)
+            .Include(s=>s.Cars)
             .ToListAsync();
-        return Ok(styles.Select(c => new ColourResponse
+        return Ok(styles.Select(c => new StyleResponse
         {
-            Id = c.Id,
-            Name = c.Color,
+            Id=c.Id ,
+            Name = c.StyleName,
             Cars = c.Cars.Select(r => new CarResponse
             {
                 Id = r.Id,
-                ColourId = c.Color
+                StyleId = c.Id
             }).ToList()
         }));
     }
 
     [HttpPost]
-    public async Task<ActionResult<Colour>> CreateColour([FromBody] ColourRequest colourRequest)
+    public async Task<ActionResult<Style>> CreateStyle([FromBody] StyleRequest styleRequest)
     {
-        var colour = new Colour(colourRequest.name);
-        _context.Add(colour);
+        var style = new Style(styleRequest.StyleName);
+        _context.Add(style);
         await _context.SaveChangesAsync();
-        return Ok(colour);
+        return Ok(style);
     }
 }

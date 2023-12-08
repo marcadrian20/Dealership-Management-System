@@ -1,14 +1,16 @@
 ﻿using DealershipManagementSystem.Repository;
 using DealershipManagementSystem.Entities.Car.Colours;
 using DealershipManagementSystem.Entities.Car.Styles;
+using DealershipManagementSystem.Entities.Car.Models;
+using DealershipManagementSystem.Entities.Car.Manufacturers;
 
 namespace DealershipManagementSystem.Entities.Car;
 
 public class Car:Entity
 {
     //public string Id { get; private  set; }
-    public string Manufacturer { get; private set; }
-    public string Model { get; private set; }
+    public Manufacturer Manufacturer { get; set; }
+    public Model Model { get; set; }
     public Style Style { get; set; }
     public string Year { get; private set; }
     public string Kilometers { get; private set; }
@@ -20,18 +22,14 @@ public class Car:Entity
     
     public static async Task<Car> CreateAsync(
         ICarRepository _carRepository,
-        string manufacturer,
-        string model,
+        Manufacturer manufacturer,
+        Model model,
         Style style,
         string year, 
         string kilometers,
         string condition,
         Colour colour)
     {
-        if (string.IsNullOrWhiteSpace(manufacturer))
-            throw new Exception("Car make can't be empty");
-        if (string.IsNullOrWhiteSpace(model))
-            throw new Exception("Model can't be empty, please enter it");
         if (string.IsNullOrWhiteSpace(year))
             throw new Exception("Year can't be empty, please enter it");
         if (string.IsNullOrWhiteSpace(kilometers))
@@ -50,25 +48,11 @@ public class Car:Entity
             Colour = colour
         };
     }
-
-    public void SetManufacturer(string manufacturer)
-    {
-        if (string.IsNullOrWhiteSpace(manufacturer))
-            throw new Exception("Manufacturer name can't be empty");
-        manufacturer = manufacturer.Replace(" ", "");
-        Manufacturer = manufacturer;
-    }
-
-    public void SetModel(string model)
-    {
-        if (string.IsNullOrWhiteSpace(model))
-            throw new Exception("Model can't be empty");
-        Model = model;
-    }
     public void SetYear(string year)
     {
         if (string.IsNullOrWhiteSpace(year))
             throw new Exception("Year can't be empty");
+        year=year.Replace(" ", "");
         Year=year;
     }
 

@@ -2,10 +2,10 @@
 
 public class Model:Entity
 {
-    public string Name { get; set; }
+    public string ModelName { get; set; }
     public List<Car> Cars { get; set; }
-    public Model(string name)
+    public Model(string modelName)
     {
-        Name = name;
+        ModelName=modelName;
     }
 }

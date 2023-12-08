@@ -1,0 +1,3 @@
+namespace DealershipManagementSystem.Controllers;
+
+public record ManufacturerRequest(string ManufacturerName);

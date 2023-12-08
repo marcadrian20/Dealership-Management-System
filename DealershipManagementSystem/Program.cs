@@ -1,3 +1,4 @@
+using DealershipManagementSystem.Entities.Car;
 using Microsoft.EntityFrameworkCore;
 using DealershipManagementSystem.Repository;
 
@@ -12,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(configuration.GetConnectionString("ConnectionString")));
-
+//builder.Services.AddScoped<ICarRepository,CarRepository>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
